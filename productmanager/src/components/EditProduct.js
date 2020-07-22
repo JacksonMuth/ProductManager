@@ -9,11 +9,12 @@ const EditProduct = props => {
         price: "",
         description: ""
     });
+
     const [error, setError] = useState({
         title: "",
         price: "",
         description: ""
-    })
+    });
     
     useEffect(() => {
         axios.get(`http://localhost:8000/api/products/${props.id}`)
@@ -37,12 +38,32 @@ const EditProduct = props => {
                     })
                     navigate("/");
                 } else {
-                    setError({
-                        title: "Something wrong",
-                        price: "u mess up",
-                        description: "no"
-                    });
+                const {...currErrors} = error;
+                    console.log(response.data.results)
+                    if (response.data.results.errors.title){
+                        
+                       currErrors.title = response.data.results.errors.title.properties.message
+                    }
+                    else {
+                        currErrors.title = "";
+                    }
+                    if (response.data.results.errors.price){
+                       currErrors.price = response.data.results.errors.price.properties.message
+                    }
+                    else {
+                        currErrors.price = "";
+                    }
+                    if (response.data.results.errors.description){
+                       currErrors.description = response.data.results.errors.description.properties.message
+                    }
+                    else {
+                        currErrors.description = "";
+                    }
+                    setError(currErrors);
                 }
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 

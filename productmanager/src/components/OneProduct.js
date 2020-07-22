@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import DeleteButton from '../components/DeleteButton'
+import { navigate } from '@reach/router';
 
 const OneProduct = (props) => {
     const [product, setProduct] = useState({
@@ -32,6 +34,7 @@ const OneProduct = (props) => {
                 <li>Price: ${product.price}</li>
                 <li>Description: {product.description}</li>
             </ul>
+            <DeleteButton id={props.id} toDo={e => navigate("/")}/>
         </div>
     )
 }

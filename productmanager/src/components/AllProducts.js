@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from '@reach/router';
+import DeleteButton from './DeleteButton';
 
 const AllProducts = () => {
     const [ allProducts, setAllProducts ] = useState([]);
@@ -43,8 +44,9 @@ const AllProducts = () => {
                                 <td>${ product.price }</td>
                                 <td>{ product.description }</td>
                                 <td>
-                                    <Link to={`/products/${product._id}/edit`}><button>Edit</button></Link>
-                                    <button onClick={ () => deleteHandler(product._id) }>Delete</button>
+                                    <Link to={`/products/${product._id}/edit`}><button>Edit</button></Link> &nbsp;
+                                    {/* <button onClick={ () => deleteHandler(product._id) }>Delete</button> */}
+                                    <DeleteButton id={product._id} toDo={getAll}/>
                                 </td>
                             </tr>
                         )
